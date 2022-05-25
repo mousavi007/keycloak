@@ -26,6 +26,7 @@ public class EventRepresentation {
 
     private long time;
     private String type;
+    private String criticalType;
     private String realmId;
     private String clientId;
     private String userId;
@@ -106,6 +107,14 @@ public class EventRepresentation {
         this.details = details;
     }
 
+    public String getCriticalType() {
+        return criticalType;
+    }
+
+    public void setCriticalType(String criticalType) {
+        this.criticalType = criticalType;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -115,6 +124,7 @@ public class EventRepresentation {
 
         if (time != that.time) return false;
         if (type != null ? !type.equals(that.type) : that.type != null) return false;
+        if (criticalType != null ? !criticalType.equals(that.criticalType) : that.criticalType != null) return false;
         if (realmId != null ? !realmId.equals(that.realmId) : that.realmId != null) return false;
         if (clientId != null ? !clientId.equals(that.clientId) : that.clientId != null) return false;
         if (userId != null ? !userId.equals(that.userId) : that.userId != null) return false;
@@ -129,6 +139,7 @@ public class EventRepresentation {
     public int hashCode() {
         int result = (int) (time ^ (time >>> 32));
         result = 31 * result + (type != null ? type.hashCode() : 0);
+        result = 31 * result + (criticalType != null ? criticalType.hashCode() : 0);
         result = 31 * result + (realmId != null ? realmId.hashCode() : 0);
         result = 31 * result + (clientId != null ? clientId.hashCode() : 0);
         result = 31 * result + (userId != null ? userId.hashCode() : 0);

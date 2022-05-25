@@ -18,6 +18,7 @@
 package org.keycloak.models.map.events;
 
 import org.keycloak.common.util.Time;
+import org.keycloak.events.CriticalEventType;
 import org.keycloak.events.Event;
 import org.keycloak.events.Event.SearchableFields;
 import org.keycloak.events.EventQuery;
@@ -54,6 +55,13 @@ public class MapAuthEventQuery implements EventQuery {
     @Override
     public EventQuery type(EventType... types) {
         mcb = mcb.compare(SearchableFields.EVENT_TYPE, IN, Arrays.asList(types));
+        return this;
+    }
+
+    @Override
+    public EventQuery criticalType(CriticalEventType... criticalTypes) {
+
+        mcb = mcb.compare(SearchableFields.CRITICAL_TYPE, IN, Arrays.asList(criticalTypes));
         return this;
     }
 

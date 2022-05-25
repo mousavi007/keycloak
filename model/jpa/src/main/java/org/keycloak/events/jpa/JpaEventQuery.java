@@ -17,6 +17,7 @@
 
 package org.keycloak.events.jpa;
 
+import org.keycloak.events.CriticalEventType;
 import org.keycloak.events.Event;
 import org.keycloak.events.EventQuery;
 import org.keycloak.events.EventType;
@@ -65,6 +66,16 @@ public class JpaEventQuery implements EventQuery {
             eventStrings.add(e.toString());
         }
         predicates.add(root.get("type").in(eventStrings));
+        return this;
+    }
+
+    @Override
+    public EventQuery criticalType(CriticalEventType... criticalTypes) {
+        List<String> eventStrings = new LinkedList<String>();
+        for(CriticalEventType e: criticalTypes) {
+            eventStrings.add(e.name());
+        }
+        predicates.add(root.get("criticalEventType").in(eventStrings));
         return this;
     }
 

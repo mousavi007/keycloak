@@ -30,6 +30,7 @@ public class AdminEventRepresentation {
     private String resourcePath;
     private String representation;
     private String error;
+    private String criticalType;
 
     public long getTime() {
         return time;
@@ -93,5 +94,13 @@ public class AdminEventRepresentation {
 
     public void setError(String error) {
         this.error = error;
+    }
+
+    public String getCriticalType() {
+        return criticalType;
+    }
+
+    public void setCriticalType(String criticalType) {
+        this.criticalType = criticalType;
     }
 }

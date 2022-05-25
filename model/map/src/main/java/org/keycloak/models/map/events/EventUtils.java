@@ -17,6 +17,7 @@
 
 package org.keycloak.models.map.events;
 
+import org.keycloak.events.CriticalEventType;
 import org.keycloak.events.Event;
 import org.keycloak.events.admin.AdminEvent;
 import org.keycloak.events.admin.AuthDetails;
@@ -37,6 +38,7 @@ public class EventUtils {
         event.setSessionId(eventEntity.getSessionId());
         event.setIpAddress(eventEntity.getIpAddress());
         event.setError(eventEntity.getError());
+        event.setCriticalEventType(eventEntity.getCriticalEventType());
 
         Map<String, String> details = eventEntity.getDetails();
         event.setDetails(details == null ? Collections.emptyMap() : details);
@@ -54,6 +56,10 @@ public class EventUtils {
         adminEvent.setResourceTypeAsString(adminEventEntity.getResourceType());
         adminEvent.setResourcePath(adminEventEntity.getResourcePath());
         adminEvent.setError(adminEventEntity.getError());
+        if(adminEventEntity.getCriticalEventType()!=null)
+            adminEvent.setCriticalEventType(adminEventEntity.getCriticalEventType());
+        else
+            adminEvent.setCriticalEventType(CriticalEventType.LOW);
 
         if(adminEventEntity.getRepresentation() != null) {
             adminEvent.setRepresentation(adminEventEntity.getRepresentation());
@@ -72,6 +78,7 @@ public class EventUtils {
         mapAdminEvent.setResourceType(adminEvent.getResourceTypeAsString());
         mapAdminEvent.setResourcePath(adminEvent.getResourcePath());
         mapAdminEvent.setError(adminEvent.getError());
+        mapAdminEvent.setCriticalEventType(adminEvent.getCriticalEventType());
 
         if(includeRepresentation) {
             mapAdminEvent.setRepresentation(adminEvent.getRepresentation());
@@ -91,6 +98,7 @@ public class EventUtils {
         eventEntity.setIpAddress(event.getIpAddress());
         eventEntity.setError(event.getError());
         eventEntity.setDetails(event.getDetails());
+        eventEntity.setCriticalEventType(event.getCriticalEventType());
         return eventEntity;
     }
 

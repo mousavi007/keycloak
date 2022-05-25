@@ -51,7 +51,7 @@ public class EventBuilder {
         this.realm = realm;
 
         event = new Event();
-
+        event.setCriticalEventType(CriticalEventType.LOW);
         if (realm.isEventsEnabled()) {
             EventStoreProvider store = session.getProvider(EventStoreProvider.class);
             if (store != null) {
@@ -84,6 +84,7 @@ public class EventBuilder {
         this.listeners = listeners;
         this.realm = realm;
         this.event = event;
+        this.event.setCriticalEventType(CriticalEventType.LOW);
     }
 
     public EventBuilder realm(RealmModel realm) {
@@ -113,6 +114,11 @@ public class EventBuilder {
 
     public EventBuilder user(String userId) {
         event.setUserId(userId);
+        return this;
+    }
+
+    public EventBuilder criticalType(CriticalEventType criticalEventType) {
+        event.setCriticalEventType(criticalEventType);
         return this;
     }
 

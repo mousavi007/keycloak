@@ -18,6 +18,7 @@
 package org.keycloak.models.map.events;
 
 import org.keycloak.common.util.Time;
+import org.keycloak.events.CriticalEventType;
 import org.keycloak.events.admin.AdminEvent;
 import org.keycloak.events.admin.AdminEvent.SearchableFields;
 import org.keycloak.events.admin.AdminEventQuery;
@@ -86,6 +87,13 @@ public class MapAdminEventQuery implements AdminEventQuery {
     @Override
     public AdminEventQuery operation(OperationType... operations) {
         mcb = mcb.compare(SearchableFields.OPERATION_TYPE, IN, Arrays.stream(operations));
+        return this;
+    }
+
+    @Override
+    public AdminEventQuery criticalEventType(CriticalEventType... criticalEventTypes) {
+        mcb = mcb.compare(SearchableFields.CRITICAL_TYPE, IN, Arrays.stream(criticalEventTypes));
+
         return this;
     }
 

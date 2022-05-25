@@ -35,6 +35,13 @@ public interface EventQuery {
     EventQuery type(EventType... types);
 
     /**
+     * Search events with given critical types
+     * @param criticalTypes requested types
+     * @return this object for method chaining
+     */
+    EventQuery criticalType(CriticalEventType... criticalTypes);
+
+    /**
      * Search events within realm
      * @param realmId id of realm
      * @return this object for method chaining

@@ -215,6 +215,7 @@ public class MapFieldPredicates {
         put(AUTH_EVENTS_PREDICATES, Event.SearchableFields.EXPIRATION, MapAuthEventEntity::getExpiration);
         put(AUTH_EVENTS_PREDICATES, Event.SearchableFields.IP_ADDRESS, MapAuthEventEntity::getIpAddress);
         put(AUTH_EVENTS_PREDICATES, Event.SearchableFields.EVENT_TYPE, MapAuthEventEntity::getType);
+        put(AUTH_EVENTS_PREDICATES, Event.SearchableFields.CRITICAL_TYPE, MapAuthEventEntity::getCriticalEventType);
 
         put(ADMIN_EVENTS_PREDICATES, AdminEvent.SearchableFields.REALM_ID, MapAdminEventEntity::getRealmId);
         put(ADMIN_EVENTS_PREDICATES, AdminEvent.SearchableFields.TIME, MapAdminEventEntity::getTime);
@@ -226,6 +227,8 @@ public class MapFieldPredicates {
         put(ADMIN_EVENTS_PREDICATES, AdminEvent.SearchableFields.OPERATION_TYPE, MapAdminEventEntity::getOperationType);
         put(ADMIN_EVENTS_PREDICATES, AdminEvent.SearchableFields.RESOURCE_TYPE, MapAdminEventEntity::getResourceType);
         put(ADMIN_EVENTS_PREDICATES, AdminEvent.SearchableFields.RESOURCE_PATH, MapAdminEventEntity::getResourcePath);
+        put(ADMIN_EVENTS_PREDICATES, AdminEvent.SearchableFields.CRITICAL_TYPE, MapAdminEventEntity::getCriticalEventType);
+
     }
 
     static {

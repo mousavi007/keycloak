@@ -19,6 +19,7 @@ package org.keycloak.services.resources.admin;
 import org.jboss.logging.Logger;
 import org.keycloak.common.ClientConnection;
 import org.keycloak.common.util.Time;
+import org.keycloak.events.CriticalEventType;
 import org.keycloak.events.EventListenerProvider;
 import org.keycloak.events.EventStoreProvider;
 import org.keycloak.events.admin.AdminEvent;
@@ -55,7 +56,7 @@ public class AdminEventBuilder {
         this.listeners = new HashMap<>();
         updateStore(session);
         addListeners(session);
-
+        adminEvent.setCriticalEventType(CriticalEventType.LOW);
         authRealm(auth.getRealm());
         authClient(auth.getClient());
         authUser(auth.getUser());
@@ -123,6 +124,11 @@ public class AdminEventBuilder {
      */
     public AdminEventBuilder resource(String resourceType){
         adminEvent.setResourceTypeAsString(resourceType);
+        return this;
+    }
+
+    public AdminEventBuilder criticalEventType(CriticalEventType criticalEventType){
+        adminEvent.setCriticalEventType(criticalEventType);
         return this;
     }
 

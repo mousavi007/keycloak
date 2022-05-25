@@ -21,10 +21,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.jboss.logging.Logger;
 import org.keycloak.common.util.Time;
-import org.keycloak.events.Event;
-import org.keycloak.events.EventQuery;
-import org.keycloak.events.EventStoreProvider;
-import org.keycloak.events.EventType;
+import org.keycloak.events.*;
 import org.keycloak.events.admin.AdminEvent;
 import org.keycloak.events.admin.AdminEventQuery;
 import org.keycloak.events.admin.AuthDetails;
@@ -156,6 +153,10 @@ public class JpaEventStoreProvider implements EventStoreProvider {
         eventEntity.setUserId(event.getUserId());
         eventEntity.setSessionId(event.getSessionId());
         eventEntity.setIpAddress(event.getIpAddress());
+        if(event.getCriticalEventType() != null)
+            eventEntity.setCriticalEventType(event.getCriticalEventType().name());
+        else
+            eventEntity.setCriticalEventType(CriticalEventType.LOW.toString());
         eventEntity.setError(event.getError());
         try {
             if (maxDetailLength > 0 && event.getDetails() != null) {
@@ -194,6 +195,10 @@ public class JpaEventStoreProvider implements EventStoreProvider {
         event.setSessionId(eventEntity.getSessionId());
         event.setIpAddress(eventEntity.getIpAddress());
         event.setError(eventEntity.getError());
+        if(eventEntity.getCriticalEventType() != null)
+            event.setCriticalEventType(CriticalEventType.valueOf(eventEntity.getCriticalEventType()));
+        else
+            event.setCriticalEventType(CriticalEventType.LOW);
         try {
             Map<String, String> details = mapper.readValue(eventEntity.getDetailsJson(), mapType);
             event.setDetails(details);
@@ -210,6 +215,10 @@ public class JpaEventStoreProvider implements EventStoreProvider {
         adminEventEntity.setRealmId(adminEvent.getRealmId());
         setAuthDetails(adminEventEntity, adminEvent.getAuthDetails());
         adminEventEntity.setOperationType(adminEvent.getOperationType().toString());
+        if(adminEvent.getCriticalEventType()!=null)
+            adminEventEntity.setCriticalEventType(adminEvent.getCriticalEventType().name());
+        else
+            adminEventEntity.setCriticalEventType(CriticalEventType.LOW.name());
 
         if (adminEvent.getResourceTypeAsString() != null) {
             adminEventEntity.setResourceType(adminEvent.getResourceTypeAsString());
@@ -231,6 +240,11 @@ public class JpaEventStoreProvider implements EventStoreProvider {
         adminEvent.setRealmId(adminEventEntity.getRealmId());
         setAuthDetails(adminEvent, adminEventEntity);
         adminEvent.setOperationType(OperationType.valueOf(adminEventEntity.getOperationType()));
+
+        if(adminEventEntity.getCriticalEventType() != null)
+            adminEvent.setCriticalEventType(CriticalEventType.valueOf(adminEventEntity.getCriticalEventType()));
+        else
+            adminEvent.setCriticalEventType(CriticalEventType.LOW);
 
         if (adminEventEntity.getResourceType() != null) {
             adminEvent.setResourceTypeAsString(adminEventEntity.getResourceType());

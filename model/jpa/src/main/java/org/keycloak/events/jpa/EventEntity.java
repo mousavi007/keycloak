@@ -54,6 +54,9 @@ public class EventEntity {
     @Column(name="IP_ADDRESS")
     private String ipAddress;
 
+    @Column(name = "CRITICAL_EVENT_TYPE")
+    private String criticalEventType;
+
     @Column(name="ERROR")
     private String error;
 
@@ -140,4 +143,11 @@ public class EventEntity {
         this.detailsJson = detailsJson;
     }
 
+    public String getCriticalEventType() {
+        return criticalEventType;
+    }
+
+    public void setCriticalEventType(String criticalEventType) {
+        this.criticalEventType = criticalEventType;
+    }
 }

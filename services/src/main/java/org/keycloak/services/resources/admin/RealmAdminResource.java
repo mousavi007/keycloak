@@ -61,6 +61,7 @@ import org.keycloak.common.Profile;
 import org.keycloak.common.VerificationException;
 import org.keycloak.common.util.PemUtils;
 import org.keycloak.email.EmailTemplateProvider;
+import org.keycloak.events.CriticalEventType;
 import org.keycloak.events.EventQuery;
 import org.keycloak.events.EventStoreProvider;
 import org.keycloak.events.EventType;
@@ -728,7 +729,7 @@ public class RealmAdminResource {
     @GET
     @NoCache
     @Produces(MediaType.APPLICATION_JSON)
-    public Stream<EventRepresentation> getEvents(@QueryParam("type") List<String> types, @QueryParam("client") String client,
+    public Stream<EventRepresentation> getEvents(@QueryParam("type") List<String> types,@QueryParam("criticalType") List<String> criticalTypes, @QueryParam("client") String client,
                                                @QueryParam("user") String user, @QueryParam("dateFrom") String dateFrom, @QueryParam("dateTo") String dateTo,
                                                @QueryParam("ipAddress") String ipAddress, @QueryParam("first") Integer firstResult,
                                                @QueryParam("max") Integer maxResults) {
@@ -747,6 +748,14 @@ public class RealmAdminResource {
                 t[i] = EventType.valueOf(types.get(i));
             }
             query.type(t);
+        }
+
+        if (criticalTypes != null && !criticalTypes.isEmpty()) {
+            CriticalEventType[] t = new CriticalEventType[criticalTypes.size()];
+            for (int i = 0; i < t.length; i++) {
+                t[i] = CriticalEventType.valueOf(criticalTypes.get(i));
+            }
+            query.criticalType(t);
         }
 
         if (user != null) {
@@ -811,7 +820,8 @@ public class RealmAdminResource {
     @GET
     @NoCache
     @Produces(MediaType.APPLICATION_JSON)
-    public Stream<AdminEventRepresentation> getEvents(@QueryParam("operationTypes") List<String> operationTypes, @QueryParam("authRealm") String authRealm, @QueryParam("authClient") String authClient,
+    public Stream<AdminEventRepresentation> getEvents(@QueryParam("operationTypes") List<String> operationTypes,@QueryParam("criticalTypes") List<String> criticalTypes,
+                                                      @QueryParam("authRealm") String authRealm, @QueryParam("authClient") String authClient,
                                                     @QueryParam("authUser") String authUser, @QueryParam("authIpAddress") String authIpAddress,
                                                     @QueryParam("resourcePath") String resourcePath, @QueryParam("dateFrom") String dateFrom,
                                                     @QueryParam("dateTo") String dateTo, @QueryParam("first") Integer firstResult,
@@ -848,6 +858,14 @@ public class RealmAdminResource {
                 t[i] = OperationType.valueOf(operationTypes.get(i));
             }
             query.operation(t);
+        }
+
+        if (criticalTypes != null && !criticalTypes.isEmpty()) {
+            CriticalEventType[] t = new CriticalEventType[criticalTypes.size()];
+            for (int i = 0; i < t.length; i++) {
+                t[i] = CriticalEventType.valueOf(criticalTypes.get(i));
+            }
+            query.criticalEventType(t);
         }
 
         if (resourceTypes != null && !resourceTypes.isEmpty()) {

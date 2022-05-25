@@ -25,10 +25,7 @@ import org.keycloak.common.Profile;
 import org.keycloak.common.util.HtmlUtils;
 import org.keycloak.common.util.Time;
 import org.keycloak.component.ComponentModel;
-import org.keycloak.events.Event;
-import org.keycloak.events.EventQuery;
-import org.keycloak.events.EventStoreProvider;
-import org.keycloak.events.EventType;
+import org.keycloak.events.*;
 import org.keycloak.events.admin.AdminEvent;
 import org.keycloak.events.admin.AdminEventQuery;
 import org.keycloak.events.admin.AuthDetails;
@@ -554,6 +551,11 @@ public class TestingResourceProvider implements RealmResourceProvider {
         if (rep.getResourceType() != null) {
             event.setResourceTypeAsString(rep.getResourceType());
         }
+        if(rep.getCriticalType()!=null){
+            event.setCriticalEventType(CriticalEventType.valueOf(rep.getCriticalType()));
+        }
+        else
+            event.setCriticalEventType(CriticalEventType.LOW);
         event.setRealmId(rep.getRealmId());
         event.setRepresentation(rep.getRepresentation());
         event.setResourcePath(rep.getResourcePath());

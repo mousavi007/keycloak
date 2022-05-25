@@ -17,6 +17,9 @@
 
 package org.keycloak.events.admin;
 
+import org.keycloak.events.CriticalEventType;
+import org.keycloak.events.Event;
+import org.keycloak.events.EventType;
 import org.keycloak.storage.SearchableModelField;
 
 /**
@@ -36,6 +39,7 @@ public class AdminEvent {
         public static final SearchableModelField<AdminEvent> OPERATION_TYPE  = new SearchableModelField<>("operationType", OperationType.class);
         public static final SearchableModelField<AdminEvent> RESOURCE_TYPE   = new SearchableModelField<>("resourceType", ResourceType.class);
         public static final SearchableModelField<AdminEvent> RESOURCE_PATH   = new SearchableModelField<>("resourcePath", String.class);
+        public static final SearchableModelField<AdminEvent> CRITICAL_TYPE  = new SearchableModelField<>("criticalEventType", EventType.class);
     }
 
     private String id;
@@ -45,6 +49,8 @@ public class AdminEvent {
     private String realmId;
 
     private AuthDetails authDetails;
+
+    private CriticalEventType criticalEventType;
 
     /**
      * The resource type an AdminEvent was triggered for.
@@ -70,6 +76,7 @@ public class AdminEvent {
         this.resourcePath = toCopy.getResourcePath();
         this.representation = toCopy.getRepresentation();
         this.error = toCopy.getError();
+        this.criticalEventType = toCopy.getCriticalEventType();
     }
 
     /**
@@ -153,6 +160,14 @@ public class AdminEvent {
 
     public void setResourcePath(String resourcePath) {
         this.resourcePath = resourcePath;
+    }
+
+    public CriticalEventType getCriticalEventType() {
+        return criticalEventType;
+    }
+
+    public void setCriticalEventType(CriticalEventType criticalEventType) {
+        this.criticalEventType = criticalEventType;
     }
 
     /**

@@ -63,6 +63,9 @@ public class AdminEventEntity {
     @Column(name="REPRESENTATION", length = 25500)
     private String representation;
 
+    @Column(name = "CRITICAL_EVENT_TYPE")
+    private String criticalEventType;
+
     @Column(name="ERROR")
     private String error;
 
@@ -160,5 +163,13 @@ public class AdminEventEntity {
 
     public void setResourceType(String resourceType) {
         this.resourceType = resourceType;
+    }
+
+    public String getCriticalEventType() {
+        return criticalEventType;
+    }
+
+    public void setCriticalEventType(String criticalEventType) {
+        this.criticalEventType = criticalEventType;
     }
 }

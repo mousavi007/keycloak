@@ -17,6 +17,7 @@
 
 package org.keycloak.models.map.events;
 
+import org.keycloak.events.CriticalEventType;
 import org.keycloak.events.EventType;
 import org.keycloak.models.map.annotations.GenerateEntityImplementations;
 import org.keycloak.models.map.common.AbstractEntity;
@@ -55,6 +56,9 @@ public interface MapAuthEventEntity extends UpdatableEntity, AbstractEntity, Exp
 
     EventType getType();
     void setType(EventType type);
+
+    CriticalEventType getCriticalEventType();
+    void setCriticalEventType(CriticalEventType criticalEventType);
 
     String getRealmId();
     void setRealmId(String realmId);

@@ -18,7 +18,6 @@
 package org.keycloak.events;
 
 import org.keycloak.storage.SearchableModelField;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,6 +35,8 @@ public class Event {
         public static final SearchableModelField<Event> EXPIRATION     = new SearchableModelField<>("expiration", Long.class);
         public static final SearchableModelField<Event> IP_ADDRESS     = new SearchableModelField<>("ipAddress", String.class);
         public static final SearchableModelField<Event> EVENT_TYPE     = new SearchableModelField<>("eventType", EventType.class);
+        public static final SearchableModelField<Event> CRITICAL_TYPE  = new SearchableModelField<>("criticalEventType", EventType.class);
+
     }
 
     private String id;
@@ -43,6 +44,8 @@ public class Event {
     private long time;
 
     private EventType type;
+
+    private CriticalEventType criticalEventType;
 
     private String realmId;
 
@@ -138,6 +141,14 @@ public class Event {
         this.details = details;
     }
 
+    public CriticalEventType getCriticalEventType() {
+        return criticalEventType;
+    }
+
+    public void setCriticalEventType(CriticalEventType criticalEventType) {
+        this.criticalEventType = criticalEventType;
+    }
+
     public Event clone() {
         Event clone = new Event();
         clone.id = id;
@@ -150,6 +161,7 @@ public class Event {
         clone.ipAddress = ipAddress;
         clone.error = error;
         clone.details = details != null ? new HashMap<>(details) : null;
+        clone.criticalEventType = criticalEventType;
         return clone;
     }
 
@@ -159,5 +171,7 @@ public class Event {
         }
         return string;
     }
+
+
 
 }

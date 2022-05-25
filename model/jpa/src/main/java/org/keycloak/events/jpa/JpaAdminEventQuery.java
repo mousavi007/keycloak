@@ -17,6 +17,7 @@
 
 package org.keycloak.events.jpa;
 
+import org.keycloak.events.CriticalEventType;
 import org.keycloak.events.admin.AdminEvent;
 import org.keycloak.events.admin.AdminEventQuery;
 import org.keycloak.events.admin.OperationType;
@@ -73,6 +74,16 @@ public class JpaAdminEventQuery implements AdminEventQuery {
             operationStrings.add(e.toString());
         }
         predicates.add(root.get("operationType").in(operationStrings));
+        return this;
+    }
+
+    @Override
+    public AdminEventQuery criticalEventType(CriticalEventType... operations) {
+        List<String> operationStrings = new LinkedList<String>();
+        for (CriticalEventType e : operations) {
+            operationStrings.add(e.toString());
+        }
+        predicates.add(root.get("criticalEventType").in(operationStrings));
         return this;
     }
 

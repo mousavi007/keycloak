@@ -31,6 +31,7 @@ import org.keycloak.common.util.Time;
 import org.keycloak.component.ComponentModel;
 import org.keycloak.credential.CredentialMetadata;
 import org.keycloak.credential.CredentialModel;
+import org.keycloak.events.CriticalEventType;
 import org.keycloak.events.Event;
 import org.keycloak.events.admin.AdminEvent;
 import org.keycloak.events.admin.AuthDetails;
@@ -260,6 +261,10 @@ public class ModelToRepresentation {
         EventRepresentation rep = new EventRepresentation();
         rep.setTime(event.getTime());
         rep.setType(event.getType().toString());
+        if(event.getCriticalEventType() != null)
+            rep.setCriticalType(event.getCriticalEventType().name());
+        else
+            rep.setCriticalType(CriticalEventType.LOW.name());
         rep.setRealmId(event.getRealmId());
         rep.setClientId(event.getClientId());
         rep.setUserId(event.getUserId());
@@ -281,6 +286,10 @@ public class ModelToRepresentation {
         if (adminEvent.getResourceTypeAsString() != null) {
             rep.setResourceType(adminEvent.getResourceTypeAsString());
         }
+        if(adminEvent.getCriticalEventType()!= null)
+            rep.setCriticalType(adminEvent.getCriticalEventType().name());
+        else
+            rep.setCriticalType(CriticalEventType.LOW.name());
         rep.setResourcePath(adminEvent.getResourcePath());
         rep.setRepresentation(adminEvent.getRepresentation());
         rep.setError(adminEvent.getError());

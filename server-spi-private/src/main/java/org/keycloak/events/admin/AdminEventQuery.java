@@ -17,6 +17,8 @@
 
 package org.keycloak.events.admin;
 
+import org.keycloak.events.CriticalEventType;
+
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -74,6 +76,15 @@ public interface AdminEventQuery {
      * @return <code>this</code> for method chaining
      */
     AdminEventQuery operation(OperationType... operations);
+
+    /**
+     * Search by operation type
+     *
+     * @param criticalEventTypes
+     * @return <code>this</code> for method chaining
+     */
+    AdminEventQuery criticalEventType(CriticalEventType... criticalEventTypes);
+
 
     /**
      * Search by {@link ResourceType}.

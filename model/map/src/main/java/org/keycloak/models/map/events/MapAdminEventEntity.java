@@ -17,6 +17,7 @@
 
 package org.keycloak.models.map.events;
 
+import org.keycloak.events.CriticalEventType;
 import org.keycloak.events.admin.OperationType;
 import org.keycloak.models.map.annotations.GenerateEntityImplementations;
 import org.keycloak.models.map.common.AbstractEntity;
@@ -80,4 +81,7 @@ public interface MapAdminEventEntity extends UpdatableEntity, AbstractEntity, Ex
 
     String getAuthIpAddress();
     void setAuthIpAddress(String ipAddress);
+
+    CriticalEventType getCriticalEventType();
+    void setCriticalEventType(CriticalEventType criticalEventType);
 }

@@ -263,16 +263,16 @@
         <module>common</module>
         <module>core</module>
         <module>dependencies</module>
-       <!-- <module>docs</module>--><!-- because get utf-8 error-->
+<!--
+        <module>docs</module> because get utf-8 error
+-->
         <module>server-spi</module>
         <module>server-spi-private</module>
         <module>saml-core-api</module>
         <module>saml-core</module>
         <module>federation</module>
         <module>services</module>
-<!--
         <module>themes</module>
--->
         <module>model</module>
         <module>util</module>
         <module>wildfly</module>
@@ -1873,7 +1873,7 @@
             </properties>
         </profile>
 
-<!--        <profile>
+        <profile>
             <id>quarkus</id>
             <activation>
                 <jdk>[11,)</jdk>
@@ -1884,7 +1884,7 @@
             <modules>
                 <module>quarkus</module>
             </modules>
-        </profile>-->
+        </profile>
 
         <profile>
             <id>product</id>

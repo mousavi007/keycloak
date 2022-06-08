@@ -263,7 +263,9 @@
         <module>common</module>
         <module>core</module>
         <module>dependencies</module>
+<!--
         <module>docs</module>
+-->
         <module>server-spi</module>
         <module>server-spi-private</module>
         <module>saml-core-api</module>
